@@ -8,6 +8,7 @@ import {
   ProfileIcon
 } from '@zlden/react-developer-burger-ui-components';
 import { Link } from 'react-router-dom';
+import clsx from 'clsx';
 
 export const AppHeaderUI: FC<TAppHeaderUIProps> = ({ userName }) => (
   <header className={styles.header}>
@@ -28,7 +29,11 @@ export const AppHeaderUI: FC<TAppHeaderUIProps> = ({ userName }) => (
         </Link>
       </div>
       <Link to={'/profile'}>
-        <div className={styles.link_position_last}>
+        <div
+          className={clsx(styles.link_position_last, styles.link, {
+            [styles.link_active]: location.pathname === '/profile'
+          })}
+        >
           <ProfileIcon type={'primary'} />
           <p className='text text_type_main-default ml-2'>
             {userName || 'Личный кабинет'}

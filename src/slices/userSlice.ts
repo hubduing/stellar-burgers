@@ -67,7 +67,6 @@ const userSlice = createSlice({
         state.loading = false;
         state.user = action.payload.user;
       })
-      // И так далее для других действий...
       .addCase(loginUser.pending, (state) => {
         state.loading = true;
         state.error = null;

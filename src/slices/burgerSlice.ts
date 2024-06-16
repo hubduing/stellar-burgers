@@ -5,7 +5,6 @@ import {
   orderBurgerApi,
   getIngredientsApi
 } from './../utils/burger-api';
-// import { BurgerConstructor } from '@components';
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { TConstructorIngredient, TIngredient, TOrder } from '../utils/types';
 import { v4 as randomId } from 'uuid';
@@ -90,6 +89,10 @@ const burgerSlice = createSlice({
 
   selectors: {
     selectBuns: (stateBurger) => stateBurger.buns,
+    // selectBuns: (stateBurger) => {
+    //   console.log(stateBurger);
+    //   return stateBurger.buns;
+    // },
     selectMains: (stateBurger) => stateBurger.mains,
     selectSauces: (stateBurger) => stateBurger.sauces,
     selectIngredients: (stateBurger) => stateBurger.ingredients,
@@ -176,5 +179,6 @@ export const {
   selectOrderModal,
   selectBurgerConstructor
 } = burgerSlice.selectors;
-export const { addBun, addIngredient, removeIngredient } = burgerSlice.actions;
+export const { addBun, addIngredient, removeIngredient, setOrderModal } =
+  burgerSlice.actions;
 export default burgerSlice.reducer;

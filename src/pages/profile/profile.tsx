@@ -9,13 +9,9 @@ import {
 import { Preloader } from '@ui';
 
 export const Profile: FC = () => {
-  // const user = {
-  //   name: '',
-  //   email: ''
-  // };
   const user = useSelector(selectUser);
-  const isLoading = useSelector(selectIsUserLoading);
   const dispatch = useDispatch();
+  const isLoading = useSelector(selectIsUserLoading);
   if (!user) {
     return null;
   }
@@ -77,6 +73,4 @@ export const Profile: FC = () => {
       handleInputChange={handleInputChange}
     />
   );
-
-  return null;
 };
