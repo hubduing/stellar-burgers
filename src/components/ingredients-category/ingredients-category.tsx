@@ -15,10 +15,12 @@ export const IngredientsCategory = forwardRef<
     const { bun, ingredients } = burgerConstructor;
     const counters: { [key: string]: number } = {};
     ingredients.forEach((ingredient: TIngredient) => {
-      if (!counters[ingredient._id]) counters[ingredient._id] = 0;
-      counters[ingredient._id]++;
+      // Проверяем, что _id не undefined перед использованием в качестве ключа
+      if (ingredient._id && !counters[ingredient._id])
+        counters[ingredient._id] = 0;
+      if (ingredient._id) counters[ingredient._id]++;
     });
-    // if (bun) counters[bun._id] = 2;
+    if (bun && bun._id) counters[bun._id] = 2; // Аналогичная проверка для bun._id
     return counters;
   }, [burgerConstructor]);
 
