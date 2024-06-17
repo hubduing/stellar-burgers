@@ -105,6 +105,7 @@ const burgerSlice = createSlice({
     builder
       .addCase(fetchIngredients.pending, (state) => {
         state.isLoading = true;
+        state.error = null;
       })
       .addCase(fetchIngredients.rejected, (state) => {
         state.isLoading = false;
@@ -124,6 +125,7 @@ const burgerSlice = createSlice({
       })
       .addCase(fetchFeeds.pending, (state) => {
         state.isLoading = true;
+        state.error = null;
       })
       .addCase(fetchFeeds.rejected, (state, action) => {
         state.isLoading = false;
@@ -140,9 +142,9 @@ const burgerSlice = createSlice({
       })
       .addCase(fetchOrders.pending, (state) => {
         state.isLoading = true;
+        state.error = null;
       })
       .addCase(fetchOrders.rejected, (state, action) => {
-        state.isLoading = false;
         state.error =
           action.payload instanceof Error
             ? action.payload
@@ -156,6 +158,7 @@ const burgerSlice = createSlice({
       })
       .addCase(orderBurger.pending, (state) => {
         state.isLoading = true;
+        state.error = null;
       })
       .addCase(orderBurger.rejected, (state, action) => {
         state.isLoading = false;
@@ -172,6 +175,7 @@ const burgerSlice = createSlice({
       })
       .addCase(getOrder.pending, (state) => {
         state.isLoading = true;
+        state.error = null;
       })
       .addCase(getOrder.rejected, (state, action) => {
         state.isLoading = false;
@@ -185,6 +189,7 @@ const burgerSlice = createSlice({
       .addCase(getOrder.fulfilled, (state, action) => {
         state.isLoading = false;
         state.currentOrder = action.payload.orders[0];
+        // console.log(state.currentOrder);
       });
   }
 });

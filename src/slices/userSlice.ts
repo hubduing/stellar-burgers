@@ -45,6 +45,7 @@ const userSlice = createSlice({
     builder
       .addCase(registerUser.pending, (state) => {
         state.loading = true;
+        state.error = null;
       })
       .addCase(registerUser.rejected, (state, _) => {
         state.loading = false;
@@ -57,6 +58,7 @@ const userSlice = createSlice({
       })
       .addCase(updateUser.pending, (state) => {
         state.loading = true;
+        state.error = null;
       })
       .addCase(updateUser.rejected, (state, action) => {
         // state.error = action.payload;
@@ -83,6 +85,7 @@ const userSlice = createSlice({
       })
       .addCase(getUser.pending, (state) => {
         state.loading = true;
+        state.error = null;
         state.user = null;
       })
       .addCase(getUser.rejected, (state, action) => {
@@ -95,6 +98,7 @@ const userSlice = createSlice({
       })
       .addCase(logoutUser.pending, (state) => {
         state.loading = true;
+        state.error = null;
       })
       .addCase(logoutUser.rejected, (state, _) => {
         state.loading = false;
