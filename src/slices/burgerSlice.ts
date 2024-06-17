@@ -96,6 +96,7 @@ const burgerSlice = createSlice({
     selectIngredients: (stateBurger) => stateBurger.ingredients,
     selectFeeds: (stateBurger) => stateBurger.feeds,
     selectOrders: (stateBurger) => stateBurger.orderUser,
+    selectCurrentOrder: (stateBurger) => stateBurger.currentOrder,
     selectIsLoading: (stateBurger) => stateBurger.isLoading,
     selectBurgerConstructor: (stateBurger) => stateBurger.burgerConstructor,
     selectOrderModal: (stateBurger) => stateBurger.burgerConstructor.orderModal
@@ -204,7 +205,8 @@ export const {
   selectIsLoading,
   selectOrders,
   selectOrderModal,
-  selectBurgerConstructor
+  selectBurgerConstructor,
+  selectCurrentOrder
 } = burgerSlice.selectors;
 export const { addBun, addIngredient, removeIngredient, setOrderModal } =
   burgerSlice.actions;

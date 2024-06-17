@@ -6,30 +6,22 @@ import { useDispatch, useSelector } from '../../services/store';
 import {
   getOrder,
   selectIngredients,
-  selectOrders
+  selectCurrentOrder
 } from '../../slices/burgerSlice';
 import { useParams } from 'react-router-dom';
 
 export const OrderInfo: FC = () => {
-  /** TODO: взять переменные orderData и ingredients из стора */
-  const orderData = {
-    createdAt: '',
-    ingredients: [],
-    _id: '',
-    status: '',
-    name: '',
-    updatedAt: 'string',
-    number: 0
-  };
-  // const ingredients: TIngredient[] = [];
-  // const orderData = useSelector(selectOrders);
+  const orderData = useSelector(selectCurrentOrder);
   const ingredients: TIngredient[] = useSelector(selectIngredients);
   const dispatch = useDispatch();
-  const number = useParams();
+  const number = useParams<{ number: string }>();
 
   useEffect(() => {
-    dispatch(getOrder(Number(number)));
-  });
+    // Проверка на наличие number и преобразование его в число
+    if (number) {
+      dispatch(getOrder(Number(number)));
+    }
+  }, [number, dispatch]);
 
   /* Готовим данные для отображения */
   const orderInfo = useMemo(() => {
