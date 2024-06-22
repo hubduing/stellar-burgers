@@ -55,6 +55,9 @@ export const fetchOrders = createAsyncThunk('fetchOrders', getOrdersApi);
 export const getOrder = createAsyncThunk('getOrder', getOrderByNumberApi);
 export const orderBurger = createAsyncThunk('orderBurger', orderBurgerApi);
 
+const findIndexById = (array: { id: string }[], id: string) =>
+  array.findIndex((el) => el.id === id);
+
 const burgerSlice = createSlice({
   name: 'burgerReducer',
   initialState,
@@ -86,6 +89,38 @@ const burgerSlice = createSlice({
         state.burgerConstructor.ingredients = [];
       }
       state.burgerConstructor.orderModal = action.payload;
+    },
+    up: (state, action: PayloadAction<string>) => {
+      const index = findIndexById(
+        state.burgerConstructor.ingredients,
+        action.payload
+      );
+      // console.log('UP', state.ingredients[index]);
+      if (index > 0) {
+        [
+          state.burgerConstructor.ingredients[index],
+          state.burgerConstructor.ingredients[index - 1]
+        ] = [
+          state.burgerConstructor.ingredients[index - 1],
+          state.burgerConstructor.ingredients[index]
+        ];
+      }
+    },
+    down: (state, action: PayloadAction<string>) => {
+      const index = findIndexById(
+        state.burgerConstructor.ingredients,
+        action.payload
+      );
+      // console.log('DOWN', state.burgerConstructor.ingredients[index]);
+      if (index !== -1 && index < state.ingredients.length - 1) {
+        [
+          state.burgerConstructor.ingredients[index],
+          state.burgerConstructor.ingredients[index + 1]
+        ] = [
+          state.burgerConstructor.ingredients[index + 1],
+          state.burgerConstructor.ingredients[index]
+        ];
+      }
     }
   },
 
@@ -100,7 +135,6 @@ const burgerSlice = createSlice({
     selectIsLoading: (stateBurger) => stateBurger.isLoading,
     selectBurgerConstructor: (stateBurger) => stateBurger.burgerConstructor,
     selectOrderModal: (stateBurger) => stateBurger.burgerConstructor.orderModal
-    // Дополнительные селекторы для других частей состояния, если они нужны...
   },
   extraReducers: (builder) => {
     builder
@@ -208,6 +242,12 @@ export const {
   selectBurgerConstructor,
   selectCurrentOrder
 } = burgerSlice.selectors;
-export const { addBun, addIngredient, removeIngredient, setOrderModal } =
-  burgerSlice.actions;
+export const {
+  addBun,
+  addIngredient,
+  removeIngredient,
+  setOrderModal,
+  down,
+  up
+} = burgerSlice.actions;
 export default burgerSlice.reducer;

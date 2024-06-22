@@ -8,18 +8,19 @@ import {
   selectIngredients,
   selectCurrentOrder
 } from '../../slices/burgerSlice';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 
 export const OrderInfo: FC = () => {
   const orderData = useSelector(selectCurrentOrder);
   const ingredients: TIngredient[] = useSelector(selectIngredients);
   const dispatch = useDispatch();
-  const number = useParams<{ number: string }>();
+  const { number } = useParams();
 
   useEffect(() => {
-    // Проверка на наличие number и преобразование его в число
-    if (number) {
-      dispatch(getOrder(Number(number)));
+    // Проверка на наличие number и является ли оно числом
+    const parsedNumber = Number(number);
+    if (number && !isNaN(parsedNumber)) {
+      dispatch(getOrder(parsedNumber));
     }
   }, [number, dispatch]);
 

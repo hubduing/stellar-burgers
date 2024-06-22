@@ -13,10 +13,17 @@ import '../../index.css';
 import styles from './app.module.css';
 
 import { AppHeader, IngredientDetails, Modal, OrderInfo } from '@components';
-import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import {
+  Route,
+  Routes,
+  useLocation,
+  useMatch,
+  useNavigate,
+  useParams
+} from 'react-router-dom';
 import { ProtectedRoute } from '../protected-route';
 import { useDispatch, useSelector } from '../../services/store';
-import { fetchIngredients, selectIsLoading } from '../../slices/burgerSlice';
+import { fetchIngredients } from '../../slices/burgerSlice';
 import { getCookie } from '../../utils/cookie';
 import { getUser } from '../..//slices/userSlice';
 import { useEffect } from 'react';
@@ -26,10 +33,16 @@ const App = () => {
   const backgroundLocation = location.state?.background;
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const isLoading = useSelector(selectIsLoading);
+  // const isLoading = useSelector(selectIsLoading);
+
   // Функция для закрытия модального окна
   const modalOnClose = () => {
     navigate(-1);
+  };
+
+  const getParam = () => {
+    const param = useParams();
+    return `#${param.number!}`;
   };
 
   useEffect(() => {
@@ -112,7 +125,7 @@ const App = () => {
           <Route
             path='/feed/:number'
             element={
-              <Modal title={'1'} onClose={modalOnClose}>
+              <Modal title={getParam} onClose={modalOnClose}>
                 <OrderInfo />
               </Modal>
             }
@@ -129,7 +142,7 @@ const App = () => {
             path='/profile/orders/:number'
             element={
               <ProtectedRoute>
-                <Modal title={'1'} onClose={modalOnClose}>
+                <Modal title={getParam} onClose={modalOnClose}>
                   <OrderInfo />
                 </Modal>
               </ProtectedRoute>

@@ -1,7 +1,9 @@
 import { ReactNode } from 'react';
 
-export type TModalProps = {
-  title: string;
+export type TitleResolver = string | (() => string);
+
+export interface TModalProps {
+  title: TitleResolver;
   onClose: () => void;
-  children?: ReactNode;
-};
+  children?: React.ReactNode;
+}
